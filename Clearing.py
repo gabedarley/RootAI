@@ -76,8 +76,10 @@ class Clearing:
         #TODO: Prompt for ambush card ?
         #attacker must be a string
         rolls = [random.randint(0,3), random.randint(0,3)]
-        roll1 = rolls.max()
-        roll2 = rolls.min()
+        roll1 = max(rolls)
+        roll2 = min(rolls)
+        print("Roll 1: %d" % roll1)
+        print("Roll 2: %d\n" % roll2)
 
         '''CAT ATTACKS'''
         if attacker == "cat":
@@ -96,14 +98,16 @@ class Clearing:
                 self.birdWarriors -= roll1
                 #TODO: Update Bird's warrior reserve
             elif self.birdWarriors == 0:
-                self.birdBuildings.remove("roost")
-                #TODO: Update Bird's building reserve
+                if "roost" in self.Buildings:
+                    self.Buildings.remove("roost")
+                    #TODO: Update Bird's building reserve
             else:
                 warriorDiff = roll1 - self.birdWarriors
                 self.birdWarriors = 0
-                self.birdBuildings.remove("roost")
-                #TODO: Update Bird's building reserve
-                #TODO: Update Bird's warrior reserve
+                if "roost" in self.Buildings:
+                    self.Buildings.remove("roost")
+                    #TODO: Update Bird's building reserve
+                    #TODO: Update Bird's warrior reserve
 
             #Check which cat pieces to remove
             if self.catWarriors >= roll2:
@@ -126,7 +130,7 @@ class Clearing:
             else:
                 warriorDiff = roll2 - self.catWarriors
                 self.catWarriors = 0
-                while numRemoved != roll2:
+                while numRemoved != warriorDiff:
                     if "wood" in self.catTokens:
                         self.catTokens.remove("wood")
                     elif "workshop" in self.Buildings:
@@ -134,7 +138,7 @@ class Clearing:
                     elif "recruiter" in self.Buildings:
                         self.Buildings.remove("recruiter")
                     elif "sawmill" in self.Buildings:
-                        self.catBuildings.remove("sawmill")
+                        self.Buildings.remove("sawmill")
                     elif "keep" in self.catTokens:
                         self.catTokens.remove("keep")
                     numRemoved += 1
@@ -157,14 +161,15 @@ class Clearing:
                 self.birdWarriors -= roll2
                 #TODO: Update Bird's warrior reserve
             elif self.birdWarriors == 0:
-                self.Buildings.remove("roost")
+                if "roost" in self.Buildings:
+                    self.Buildings.remove("roost")
                 #TODO: Update Bird's building reserve
             else:
-                warriorDiff = roll2 - self.birdWarriors
                 self.birdWarriors = 0
-                self.Buildings.remove("roost")
-                #TODO: Update Bird's building reserve
-                #TODO: Update Bird's warrior reserve
+                if "roost" in self.Buildings:
+                    self.Buildings.remove("roost")
+                    #TODO: Update Bird's building reserve
+                    #TODO: Update Bird's warrior reserve
 
             #Check which cat pieces to remove
             if self.catWarriors >= roll1:
@@ -176,26 +181,26 @@ class Clearing:
                     if "wood" in self.catTokens:
                         self.catTokens.remove("wood")
                     elif "workshop" in self.Buildings:
-                        self.catBuildings.remove("workshop")
+                        self.Buildings.remove("workshop")
                     elif "recruiter" in self.Buildings:
-                        self.catBuildings.remove("recruiter")
+                        self.Buildings.remove("recruiter")
                     elif "sawmill" in self.Buildings:
-                        self.catBuildings.remove("sawmill")
+                        self.Buildings.remove("sawmill")
                     elif "keep" in self.catTokens:
                         self.catTokens.remove("keep")
                     numRemoved += 1
             else:
                 warriorDiff = roll1 - self.catWarriors
                 self.catWarriors = 0
-                while numRemoved != roll1:
+                while numRemoved != warriorDiff:
                     if "wood" in self.catTokens:
                         self.catTokens.remove("wood")
                     elif "workshop" in self.Buildings:
-                        self.catBuildings.remove("workshop")
+                        self.Buildings.remove("workshop")
                     elif "recruiter" in self.Buildings:
-                        self.catBuildings.remove("recruiter")
+                        self.Buildings.remove("recruiter")
                     elif "sawmill" in self.Buildings:
-                        self.catBuildings.remove("sawmill")
+                        self.Buildings.remove("sawmill")
                     elif "keep" in self.catTokens:
-                        self.Buildings.remove("keep")
+                        self.catTokens.remove("keep")
                     numRemoved += 1
