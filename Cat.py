@@ -1,4 +1,6 @@
 from Clearing import Clearing
+#from Card import Card
+
 class Cat:
 
     def __init__(self):
@@ -12,3 +14,7 @@ class Cat:
         self.sawmillLoc = []
         self.workshoplLoc = []
         self.recruiterLoc = []
+
+        #type Card
+        self.handCards = []
+        self.craftedCards = []
