@@ -1,7 +1,6 @@
 from Clearing import Clearing
 from Cat import Cat
 from Bird import Bird
-
 class Board:
     #Initializer to construct a board object
     def __init__(self):
@@ -18,6 +17,31 @@ class Board:
         self.scores[faction] = self.scores[faction] + number
     def SubtractScore(self,faction, number):
         self.scores[faction] = self.scores[faction] - number
+    def ClearingState(self,i):
+        sawmills = 0;
+        workshops = 0;
+        recruiters = 0;
+        roosts = 0;
+        hasKeep = False;
+        print("Cat's Score: " + str(self.GetScore("cat")) + "\n")
+        print("Bird's Score: " + str(self.GetScore("bird")) + "\n")
+        hasKeep = self.clearingList[i].HasKeep()
+        for j in self.clearingList[i].Buildings:
+            print(j)
+            if j == "sawmill":
+                sawmills += 1;
+            elif j == "workshop":
+                workshops += 1;
+            elif j == "recruiter":
+                recruiters += 1;
+            elif j == "roost":
+                roosts += 1;
+        print("----- CLEARING " + str(i) + " -----\n")
+        if hasKeep:
+            print("**KEEP**")
+        print("Cat: " + str(self.clearingList[i].GetNumWarrior("cat")) + " Warriors "+ str(self.clearingList[i].GetNumWood()) + " Wood")
+        print("Bird: " + str(self.clearingList[i].GetNumWarrior("bird")) + " Warriors " +  str(roosts) + " Roosts\n")
+
     def boardState(self):
         sawmills = 0;
         workshops = 0;
