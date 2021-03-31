@@ -43,17 +43,18 @@ class Board:
         print("Bird: " + str(self.clearingList[i].GetNumWarrior("bird")) + " Warriors " +  str(roosts) + " Roosts\n")
 
     def boardState(self):
-        sawmills = 0;
-        workshops = 0;
-        recruiters = 0;
-        roosts = 0;
-        hasKeep = False;
+
         print("Cat's Score: " + str(self.GetScore("cat")) + "\n")
         print("Bird's Score: " + str(self.GetScore("bird")) + "\n")
         for i in range(12):
-            
+            sawmills = 0;
+            workshops = 0;
+            recruiters = 0;
+            roosts = 0;
+            hasKeep = False;
+
             hasKeep = self.clearingList[i].HasKeep()
-            
+
             for j in self.clearingList[i].Buildings:
                 print(j)
                 if j == "sawmill":
@@ -140,11 +141,23 @@ class Board:
             print("The keep must be in a corner clearing.\nSet up again.\n")
         if keepClear == 8:
             self.clearingList[2].AddBuilding("roost")
+            self.clearingList[2].RemoveWarrior("cat")
+            for i in range(6):
+                self.clearingList[2].AddWarrior("bird")
         elif keepClear == 11:
             self.clearingList[0].AddBuilding("roost")
+            self.clearingList[0].RemoveWarrior("cat")
+            for i in range(6):
+                self.clearingList[0].AddWarrior("bird")
         elif keepClear == 2:
             self.clearingList[8].AddBuilding("roost")
+            self.clearingList[8].RemoveWarrior("cat")
+            for i in range(6):
+                self.clearingList[8].AddWarrior("bird")
         elif keepClear == 0:
             self.clearingList[11].AddBuilding("roost")
-            
+            self.clearingList[11].RemoveWarrior("cat")
+            for i in range(6):
+                self.clearingList[11].AddWarrior("bird")
+
         print("Board set up is complete.\n")
