@@ -1,5 +1,5 @@
 import random
-class clearing:
+class Clearing:
 
     def __init__(self, id, slots, suit):
         self.id = id
@@ -12,14 +12,14 @@ class clearing:
         self.slots = slots
         self.suit = suit
 
-    def AddAdjacent(adjacentClear):
+    def AddAdjacent(self,adjacentClear):
         #adjacentClear must be clearing object
         self.adjacent.append(adjacentClear)
 
-    def GetAdjacent():
+    def GetAdjacent(self):
         return self.adjancent
 
-    def AddWarrior(warriorType):
+    def AddWarrior(self,warriorType):
         if warriorType == "bird":
             self.birdWarriors += 1
             #TODO: Update bird's warrior reserve
@@ -27,7 +27,7 @@ class clearing:
             self.catWarriors += 1
             #TODO: Update cat's warrior reserve
 
-    def RemoveWarrior(warriorType):
+    def RemoveWarrior(self,warriorType):
         if warriorType == "bird":
             self.birdWarriors -= 1
             #TODO: Update bird's warrior reserve
@@ -35,7 +35,7 @@ class clearing:
             self.catWarriors -= 1
             #TODO: Update cat's warrior reserve
 
-    def AddBuilding(buildingType):
+    def AddBuilding(self,buildingType):
         #buildingType must be roost, sawmill, workshop, or recruiter
         if buildingType == "roost":
             self.birdBuildings.append(buildingType)
@@ -46,8 +46,17 @@ class clearing:
             self.slots -= 1
             #TODO: Update Cat's score
             #TODO: Update Cat's building reserve
+    def AddToken(self, tokenType):
+        if tokenType == "keep":
+            self.catTokens.append("keep")
+        elif tokenType == "wood":
+            self.catTokens.append("wood")
+            #TODO: Update Cat's token reserve
+    def RemoveWood(self):
+        self.catTokens.remove("wood")
+        #TODO: Update Cat's token reserve
 
-    def RemoveBuilding(buildingType):
+    def RemoveBuilding(self,buildingType):
         #buildingType must be roost, sawmill, workshop, or recruiter
         if buildingType == "roost":
             self.birdBuildings.remove(buildingType)
@@ -58,19 +67,24 @@ class clearing:
             self.slots += 1
             #TODO: Update Cat's building reserve
 
-    def GetNumWarrior(warriorType):
+    def GetNumWarrior(self,warriorType):
         if warriorType == "bird":
             return self.birdWarriors
         if warriorType == "cat":
             return self.catWarriors
 
-    def GetNumBuildings(faction):
+    def GetNumBuildings(self,faction):
         if faction == "bird":
             return len(self.birdBuildings)
         if faction == "cat":
             return len(self.catBuildings)
+    def GetNumWood(self):
+        temp = self.catTokens
+        if "keep" in temp:
+            temp.remove("keep")
+        return len(temp)
 
-    def Battle(attacker):
+    def Battle(self,attacker):
         #TODO: Prompt for ambush card ?
         #attacker must be a string
         rolls = [random.randint(0,3), random.randint(0,3)]
@@ -93,7 +107,7 @@ class clearing:
             if self.birdWarriors >= roll1:
                 self.birdWarriors -= roll1
                 #TODO: Update Bird's warrior reserve
-            elif self.birdWarriors = 0:
+            elif self.birdWarriors == 0:
                 self.birdBuildings.remove("roost")
                 #TODO: Update Bird's building reserve
             else:
@@ -107,7 +121,7 @@ class clearing:
             if self.catWarriors >= roll2:
                 self.catWarriors -= roll2
                 #TODO Update Cat's warrior reserve
-            elif self.catWarriors = 0:
+            elif self.catWarriors == 0:
                 numRemoved = 0
                 while numRemoved != roll2:
                     if "wood" in self.catTokens:
@@ -154,7 +168,7 @@ class clearing:
             if self.birdWarriors >= roll2:
                 self.birdWarriors -= roll2
                 #TODO: Update Bird's warrior reserve
-            elif self.birdWarriors = 0:
+            elif self.birdWarriors == 0:
                 self.birdBuildings.remove("roost")
                 #TODO: Update Bird's building reserve
             else:
@@ -168,7 +182,7 @@ class clearing:
             if self.catWarriors >= roll1:
                 self.catWarriors -= roll1
                 #TODO Update Cat's warrior reserve
-            elif self.catWarriors = 0:
+            elif self.catWarriors == 0:
                 numRemoved = 0
                 while numRemoved != roll1:
                     if "wood" in self.catTokens:
