@@ -15,6 +15,34 @@ class Board:
         self.scores[faction] = self.scores[faction] + number
     def SubtractScore(self,faction, number):
         self.scores[faction] = self.scores[faction] - number
+    def boardState(self):
+        sawmills = 0;
+        workshops = 0;
+        recruiters = 0;
+        roosts = 0;
+        hasKeep = False;
+        print("Cat's Score: " + str(self.GetScore("cat")) + "\n")
+        print("Bird's Score: " + str(self.GetScore("bird")) + "\n")
+        for i in range(12):
+            
+            hasKeep = self.clearingList[i].HasKeep()
+            
+            for j in self.clearingList[i].Buildings:
+                print(j)
+                if j == "sawmill":
+                    sawmills += 1;
+                elif j == "workshop":
+                    workshops += 1;
+                elif j == "recruiter":
+                    recruiters += 1;
+                elif j == "roost":
+                    roosts += 1;
+            print("----- CLEARING " + str(i) + " -----\n")
+            if hasKeep:
+                print("**KEEP**")
+            print("Cat: " + str(self.clearingList[i].GetNumWarrior("cat")) + " Warriors "+ str(self.clearingList[i].GetNumWood()) + " Wood")
+            print("Bird: " + str(self.clearingList[i].GetNumWarrior("bird")) + " Warriors " +  str(roosts) + " Roosts\n")
+
     def SetUp(self,keepClear):
         self.clearingList.append(Clearing(0, 1, "fox"))
         self.clearingList.append(Clearing(1, 2, "bunny"))
@@ -80,4 +108,16 @@ class Board:
         for i in range(12):
             self.clearingList[i].AddWarrior("cat")
         self.clearingList[keepClear].AddToken("keep")
+        checkKeep = [0,2,8,11]
+        if keepClear not in checkKeep:
+            print("The keep must be in a corner clearing.\nSet up again.\n")
+        if keepClear == 8:
+            self.clearingList[2].AddBuilding("roost")
+        elif keepClear == 11:
+            self.clearingList[0].AddBuilding("roost")
+        elif keepClear == 2:
+            self.clearingList[8].AddBuilding("roost")
+        elif keepClear == 0:
+            self.clearingList[11].AddBuilding("roost")
+            
         print("Board set up is complete.\n")
