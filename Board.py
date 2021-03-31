@@ -1,4 +1,7 @@
 from Clearing import Clearing
+from Cat import Cat
+from Bird import Bird
+
 class Board:
     #Initializer to construct a board object
     def __init__(self):
