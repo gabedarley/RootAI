@@ -1,7 +1,7 @@
 import random
-class clearing:
+class Clearing:
 
-    def __init__(self, id, slots, suit):
+    def __init__(self, id, slots, suit,):
         self.id = id
         self.adjacent = []
         self.birdWarriors = 0
@@ -12,7 +12,7 @@ class clearing:
         self.slots = slots
         self.suit = suit
 
-    def AddAdjacent(adjacentClear):
+    def AddAdjacent(self,adjacentClear):
         #adjacentClear must be clearing object
         self.adjacent.append(adjacentClear)
 
@@ -93,7 +93,7 @@ class clearing:
             if self.birdWarriors >= roll1:
                 self.birdWarriors -= roll1
                 #TODO: Update Bird's warrior reserve
-            elif self.birdWarriors = 0:
+            elif self.birdWarriors == 0:
                 self.birdBuildings.remove("roost")
                 #TODO: Update Bird's building reserve
             else:
@@ -107,7 +107,7 @@ class clearing:
             if self.catWarriors >= roll2:
                 self.catWarriors -= roll2
                 #TODO Update Cat's warrior reserve
-            elif self.catWarriors = 0:
+            elif self.catWarriors == 0:
                 numRemoved = 0
                 while numRemoved != roll2:
                     if "wood" in self.catTokens:
@@ -154,7 +154,7 @@ class clearing:
             if self.birdWarriors >= roll2:
                 self.birdWarriors -= roll2
                 #TODO: Update Bird's warrior reserve
-            elif self.birdWarriors = 0:
+            elif self.birdWarriors == 0:
                 self.birdBuildings.remove("roost")
                 #TODO: Update Bird's building reserve
             else:
@@ -168,7 +168,7 @@ class clearing:
             if self.catWarriors >= roll1:
                 self.catWarriors -= roll1
                 #TODO Update Cat's warrior reserve
-            elif self.catWarriors = 0:
+            elif self.catWarriors == 0:
                 numRemoved = 0
                 while numRemoved != roll1:
                     if "wood" in self.catTokens:
