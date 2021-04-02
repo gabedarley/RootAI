@@ -1,6 +1,3 @@
-from Clearing import Clearing
-#from Card import Card
-
 class Bird:
 
     def __init__(self):
@@ -9,6 +6,9 @@ class Bird:
 
         #List to store locations of roosts, type Clearing
         self.roostLoc = []
+        self.crafting = {"fox": 0, "bunny": 0, "mouse:" 0}
+
+        self.id = "bird"
 
         #Leader, type String
         self.leader = ""
@@ -22,3 +22,6 @@ class Bird:
         self.moveCards = []
         self.battleCards = []
         self.buildCards = []
+
+from Clearing import Clearing
+from Card import Card
