@@ -17,7 +17,6 @@ class Cat:
 
         #type Card
         self.handCards = []
-        self.craftedCards = []
 
 from Clearing import Clearing
 from Card import Card
