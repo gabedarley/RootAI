@@ -1,13 +1,15 @@
-from Clearing import Clearing
-from Cat import Cat
-from Bird import Bird
+
 class Board:
     #Initializer to construct a board object
     def __init__(self):
         self.scores = {"cat":0,"bird":0} #Dictionary of the score of each faction as an int
         self.items = {"sword":2,"tea":2,"boot":2,"coin":2,"crossbow":1,"hammer":1} #Dictionary to keep track of item availibility
-        self.cards = ["bunny ambush", "bird ambush"]#List to keep track of available cards
+        self.deck = []#List to keep track of available cards
+        self.discard = [] #List for the discard
         self.clearingList = []
+        #Initializing the players
+        self.bird = Bird()
+        self.cat = Cat()
     #This method will return the score of the faction it is used on.
     def GetScore(self,faction):
         return self.scores[faction]
@@ -72,6 +74,7 @@ class Board:
             print("Bird: " + str(self.clearingList[i].GetNumWarrior("bird")) + " Warriors " +  str(roosts) + " Roosts\n")
 
     def SetUp(self,keepClear):
+        #Making all of the clearing objects
         self.clearingList.append(Clearing(0, 1, "fox"))
         self.clearingList.append(Clearing(1, 2, "bunny"))
         self.clearingList.append(Clearing(2, 2, "mouse"))
@@ -134,30 +137,99 @@ class Board:
         self.clearingList[11].AddAdjacent(self.clearingList[10])
         #Adding pieces to the board
         for i in range(12):
-            self.clearingList[i].AddWarrior("cat")
+            self.clearingList[i].AddWarrior(self.cat)
         self.clearingList[keepClear].AddToken("keep")
         checkKeep = [0,2,8,11]
         if keepClear not in checkKeep:
             print("The keep must be in a corner clearing.\nSet up again.\n")
         if keepClear == 8:
-            self.clearingList[2].AddBuilding("roost")
-            self.clearingList[2].RemoveWarrior("cat")
+            self.clearingList[2].AddBuilding("roost",self.bird)
+            self.clearingList[2].RemoveWarrior(self.cat)
             for i in range(6):
-                self.clearingList[2].AddWarrior("bird")
+                self.clearingList[2].AddWarrior(self.bird)
         elif keepClear == 11:
-            self.clearingList[0].AddBuilding("roost")
-            self.clearingList[0].RemoveWarrior("cat")
+            self.clearingList[0].AddBuilding("roost",bird)
+            self.clearingList[0].RemoveWarrior(self.cat)
             for i in range(6):
-                self.clearingList[0].AddWarrior("bird")
+                self.clearingList[0].AddWarrior(self.bird)
         elif keepClear == 2:
-            self.clearingList[8].AddBuilding("roost")
-            self.clearingList[8].RemoveWarrior("cat")
+            self.clearingList[8].AddBuilding("roost",self.bird)
+            self.clearingList[8].RemoveWarrior(self.cat)
             for i in range(6):
-                self.clearingList[8].AddWarrior("bird")
+                self.clearingList[8].AddWarrior(self.bird)
         elif keepClear == 0:
-            self.clearingList[11].AddBuilding("roost")
-            self.clearingList[11].RemoveWarrior("cat")
+            self.clearingList[11].AddBuilding("roost",self.bird)
+            self.clearingList[11].RemoveWarrior(self.cat)
             for i in range(6):
-                self.clearingList[11].AddWarrior("bird")
+                self.clearingList[11].AddWarrior(self.bird)
+        #Making all of the cards
+        #BIRD CARDS
+        self.deck.append(Card("Woodland Runners","bird",{"fox":0,"bunny":1,"mouse":0}))
+        self.deck.append(Card("Birdy Bindle","bird",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("Arms Trader","bird",{"fox":2,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Crossbow","bird",{"fox":1,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Brutal Tactics","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Brutal Tactics Two","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Royal Claim","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Sappers","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Sappers Two","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Armorers","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Armorers Two","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Dominance","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Ambush!","bird",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Ambush! Two","bird",{"fox":0,"bunny":0,"mouse":0}))
+        #FOX CARDS
+        self.deck.append(Card("Protection Racket","fox",{"fox":0,"bunny":2,"mouse":0}))
+        self.deck.append(Card("Root Tea","fox",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("Travel Gear","fox",{"fox":0,"bunny":1,"mouse":0}))
+        self.deck.append(Card("Foxfolk Steel","fox",{"fox":2,"bunny":2,"mouse":0}))
+        self.deck.append(Card("Gently Used Knapsack","fox",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("Anvil","fox",{"fox":1,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Tax Collector","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Tax Collector Two","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Stand and Deliver!","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Tax Collector Three","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Stand and Deliver! Two","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Dominance","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Favor of the Foxes","fox",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Ambush!","fox",{"fox":0,"bunny":0,"mouse":0}))
+        #BUNNY CARDS
+        self.deck.append(Card("Smuggler's Trail","bunny",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("A Visit to Friends","bunny",{"fox":0,"bunny":1,"mouse":0}))
+        self.deck.append(Card("Root Tea","bunny",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("Bake Sale","bunny",{"fox":0,"bunny":2,"mouse":0}))
+        self.deck.append(Card("Better Burrow Bank","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Cobbler","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Dominance","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Cobbler Two","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Favor of the Rabbits","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Command Warren","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Command Warren Two","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Better Burrow Bank Two","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Ambush!","bunny",{"fox":0,"bunny":0,"mouse":0}))
+        #MOUSE CARDS
+        self.deck.append(Card("Root Tea","mouse",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("Crossbow","mouse",{"fox":1,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Travel Gear","mouse",{"fox":0,"bunny":1,"mouse":0}))
+        self.deck.append(Card("Sword","mouse",{"fox":2,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Investments","mouse",{"fox":0,"bunny":2,"mouse":0}))
+        self.deck.append(Card("Mouse-in-a-Sack","mouse",{"fox":0,"bunny":0,"mouse":1}))
+        self.deck.append(Card("Scouting Party","mouse",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Dominance","mouse",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Scouting Party Two","mouse",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Codebreakers","mouse",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Codebreakers Two","mouse",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Favor of the Mice","mouse",{"fox":0,"bunny":0,"mouse":0}))
+        self.deck.append(Card("Ambush!","mouse",{"fox":0,"bunny":0,"mouse":0}))
+
+
+
+
+        
 
         print("Board set up is complete.\n")
+
+from Clearing import Clearing
+from Cat import Cat
+from Bird import Bird
+from Card import Card
