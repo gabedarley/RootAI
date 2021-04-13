@@ -1,6 +1,6 @@
 class Card:
 
-    def __init__(self, id, suit, crafting, cardType):
+    def __init__(self, id, suit, crafting):
         #Name (e.g. "Foxfolk Steel"), type String
         self.id = id
 
@@ -10,26 +10,27 @@ class Card:
         #Crafting cost ({fox: 1, mouse: 0, bunny: 0}), type Dictionary
         self.crafting = crafting
 
-        #Card type (Ambush, Item, Immediate, Long)
-        self.cardType = cardType
     def CheckCraft(self, player):
-        if(player.crafting{"fox"} < self.crafting{"fox"}):
+        if(player.crafting["fox"] < self.crafting["fox"]):
             return False
-        elif(player.crafting{"bunny"} < self.crafting{"bunny"):
+        elif(player.crafting["bunny"] < self.crafting["bunny"]):
              return False
-        elif(player.crafting{"mouse"} < self.crafting{"mouse"):
+        elif(player.crafting["mouse"] < self.crafting["mouse"]):
              return False
         else:
             return True
 
     def WoodlandRunners(self, board, player):
         if self.CheckCraft(player):
-            if board.items{"boot"} > 0:
-                board.items{"boot") -= 1
-                board.score{player.id) += 1
+            if board.items["boot"] > 0:
+                board.items["boot"] += 1
+                board.scores[player.id] += 1
                 print("Card crafted")
                 print("Cat's Score: " + str(board.GetScore("cat")) + "\n")
                 print("Bird's Score: " + str(board.GetScore("bird")) + "\n")
+                board.discard.append(player.handCards.pop("Woodland Runners"))
+
+
             else:
                 print("Not enough items")
         else:
