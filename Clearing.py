@@ -1,3 +1,4 @@
+import random
 class Clearing:
 
     def __init__(self, id, slots, suit):
@@ -42,15 +43,17 @@ class Clearing:
 
         if player.id == "bird":
             player.roostReserve -= 1
+            player.crafting[self.suit] += 1
         elif player.id == "cat":
             if buildingType == "sawmill":
                 player.sawmillReserve -= 1
             elif buildType == "workshop":
                 player.workshopReserve -= 1
+                player.crafting[self.suit] += 1
             else:
                 player.recruiterReserve -= 1
 
-    def AddToken(self, tokenType, player):
+    def AddToken(self, tokenType):
         if tokenType == "keep":
             self.catTokens.append("keep")
         elif tokenType == "wood":
@@ -242,6 +245,6 @@ class Clearing:
                         self.catTokens.remove("keep")
                     numRemoved += 1
 
-import random
+
 from Cat import Cat
 from Bird import Bird
