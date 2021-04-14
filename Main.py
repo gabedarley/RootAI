@@ -1,8 +1,10 @@
 import time
 from Board import Board
-
 boardOne = Board()
 boardOne.SetUp(0)
 boardOne.boardState()
-boardOne.bird.DrawCard(boardOne)
-boardOne.bird.handCards["Woodland Runners"].WoodlandRunners(boardOne, boardOne.bird)
+boardOne.bird.DrawCard(boardOne,"Sword")
+name = input()
+boardOne.bird.handCards[name].Action(name,boardOne,boardOne.bird)
+boardOne.bird.Build(boardOne.clearingList[5])
+boardOne.boardState()
