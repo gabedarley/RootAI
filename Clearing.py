@@ -15,6 +15,23 @@ class Clearing:
         #adjacentClear must be clearing object
         self.adjacent.append(adjacentClear)
 
+    def IsRuling(self,playerID):
+        ruler = ""
+        roostNum = 0
+        for i in self.Buildings:
+            if i == "roost":
+                roostNum += 1
+        if ((self.birdWarriors + roostNum )>= (self.catWarriors + len(self.Buildings) - roostNum )):
+            ruler = "bird"
+        else:
+            ruler = "cat"
+        if playerID == bird and ruler == bird:
+            return True
+        elif playerID == cat and ruler == cat:
+            return True
+        else:
+            return False
+
     def GetAdjacent(self):
         return self.adjancent
 
